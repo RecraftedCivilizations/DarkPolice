@@ -11,9 +11,9 @@ group 'com.github.recraftedcivilizations'
 version '1.0-SNAPSHOT'
 
 // plugin.yml values
-def pluginName = ''
-def pluginDescription = ''
-def pluginAuthors = []
+def pluginName = 'DarkPolice'
+def pluginDescription = 'A plugin that provides Police actions and items for the DarkRP server '
+def pluginAuthors = ['DarkPolice']
 
 // Base repos
 repositories {
@@ -56,7 +56,7 @@ bukkit {
     meta {
         name = pluginName
         description = pluginDescription
-        main = group + '.' + pluginName + '.' + 'Main'
+        main = group + '.' + pluginName.toLowerCase() + '.' + pluginName
         version = version
         authors = pluginAuthors
     }
