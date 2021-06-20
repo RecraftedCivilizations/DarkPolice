@@ -13,6 +13,7 @@ import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 
 class Handcuffs(private val handcuffKey: NamespacedKey = DarkPolice.handcuffKey): Listener {
+    private val slowEffect = PotionEffect(PotionEffectType.SLOW, Int.MAX_VALUE, 15, false, false)
     private val handcuffedPlayers = emptySet<Player>().toMutableSet()
 
     @EventHandler
@@ -39,12 +40,17 @@ class Handcuffs(private val handcuffKey: NamespacedKey = DarkPolice.handcuffKey)
     }
 
     private fun handcuffPlayer(player: Player){
-        player.addPotionEffect(PotionEffect(PotionEffectType.SLOW, Int.MAX_VALUE, 15, false, false))
+        player.addPotionEffect(slowEffect)
         handcuffedPlayers.add(player)
     }
 
     fun isHandcuffed(player: Player): Boolean{
         return player in handcuffedPlayers
+    }
+
+    fun unCuffPlayer(player: Player){
+        player.removePotionEffect(PotionEffectType.SLOW)
+        handcuffedPlayers.remove(player)
     }
 
 }
