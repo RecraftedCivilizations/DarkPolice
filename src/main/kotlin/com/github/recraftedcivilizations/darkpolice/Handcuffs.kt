@@ -14,7 +14,7 @@ import org.bukkit.potion.PotionEffectType
 
 class Handcuffs(private val handcuffKey: NamespacedKey = DarkPolice.handcuffKey): Listener {
     private val slowEffect = PotionEffect(PotionEffectType.SLOW, Int.MAX_VALUE, 15, false, false)
-    private val handcuffedPlayers = emptySet<Player>().toMutableSet()
+    private val handcuffedPlayers = emptyMap<Player, Player>().toMutableMap()
 
     @EventHandler
     fun onPlayerHitOtherPlayer(e: EntityDamageByEntityEvent){
@@ -35,13 +35,13 @@ class Handcuffs(private val handcuffKey: NamespacedKey = DarkPolice.handcuffKey)
         val isHandcuff = tagManager.getOther(handcuffKey, BooleanItemTagType() as PersistentDataType<Any, Any>) as Boolean
 
         if (isHandcuff){
-            handcuffPlayer(attacked)
+            handcuffPlayer(attacked, attacker)
         }
     }
 
-    private fun handcuffPlayer(player: Player){
-        player.addPotionEffect(slowEffect)
-        handcuffedPlayers.add(player)
+    private fun handcuffPlayer(cuffed: Player, whoCuffed: Player){
+        cuffed.addPotionEffect(slowEffect)
+        handcuffedPlayers[cuffed] = whoCuffed
     }
 
     fun isHandcuffed(player: Player): Boolean{
@@ -51,6 +51,10 @@ class Handcuffs(private val handcuffKey: NamespacedKey = DarkPolice.handcuffKey)
     fun unCuffPlayer(player: Player){
         player.removePotionEffect(PotionEffectType.SLOW)
         handcuffedPlayers.remove(player)
+    }
+
+    fun cuffedPlayers(): Map<Player, Player>{
+        return handcuffedPlayers
     }
 
 }
