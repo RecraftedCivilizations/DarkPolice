@@ -11,6 +11,15 @@ import org.bukkit.Location
  */
 interface IParseData {
 
+    /**
+     * Get the location of the current prison
+     * @return The location of the prison
+     */
     fun getPrisonLocation(): Location
+
+    /**
+     * Set the location of the prison
+     * @param location The location to set the prison to
+     */
     fun setPrisonLocation(location: Location)
 }
