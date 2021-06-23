@@ -1,5 +1,6 @@
 package com.github.recraftedcivilizations.darkpolice.commands
 
+import com.github.recraftedcivilizations.darkcitizens.DarkCitizens
 import com.github.recraftedcivilizations.darkcitizens.dPlayer.DPlayerManager
 import com.github.recraftedcivilizations.darkpolice.Handcuffs
 import com.github.recraftedcivilizations.darkpolice.Jail
@@ -10,7 +11,8 @@ import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
-class SendToJail(private val dPlayerManager: DPlayerManager, private val configParser: ConfigParser, private val handcuffs: Handcuffs, private val jail: Jail): CommandExecutor {
+class SendToJail(private val configParser: ConfigParser, private val handcuffs: Handcuffs, private val jail: Jail, private val dPlayerManager: DPlayerManager = DarkCitizens.dPlayerManager): CommandExecutor {
+
     /**
      * Executes the given command, returning its success.
      * <br></br>
