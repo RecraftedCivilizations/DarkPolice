@@ -15,7 +15,7 @@ interface IParseData {
      * Get the location of the current prison
      * @return The location of the prison
      */
-    fun getPrisonLocation(): Location
+    fun getPrisonLocation(): Location?
 
     /**
      * Set the location of the prison
