@@ -66,5 +66,4 @@ class SendToJail(private val configParser: ConfigParser, private val handcuffs: 
     }
 
 
-    }
 }
