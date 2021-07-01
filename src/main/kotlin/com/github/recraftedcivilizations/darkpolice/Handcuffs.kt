@@ -8,12 +8,14 @@ import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.entity.EntityDamageEvent
 import com.github.darkvanityoflight.recraftedcore.utils.tagutils.persistentdatatypes.BooleanItemTagType
+import org.bukkit.event.player.PlayerCommandPreprocessEvent
 import org.bukkit.persistence.PersistentDataType
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 
 class Handcuffs(private val handcuffKey: NamespacedKey = DarkPolice.handcuffKey): Listener {
     private val slowEffect = PotionEffect(PotionEffectType.SLOW, Int.MAX_VALUE, 15, false, false)
+    // Key is the handcuffed player value is the player who handcuffed him
     private val handcuffedPlayers = emptyMap<Player, Player>().toMutableMap()
 
     @EventHandler
@@ -55,6 +57,13 @@ class Handcuffs(private val handcuffKey: NamespacedKey = DarkPolice.handcuffKey)
 
     fun cuffedPlayers(): Map<Player, Player>{
         return handcuffedPlayers
+    }
+
+    @EventHandler
+    fun cancelCommands(e: PlayerCommandPreprocessEvent){
+        if (e.player in handcuffedPlayers.keys){
+            e.isCancelled = true
+        }
     }
 
 }
